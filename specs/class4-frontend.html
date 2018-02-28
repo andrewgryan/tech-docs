@@ -20,7 +20,7 @@
     <p>A more desirable solution would be for the user to click/zoom to the
     affected portion of the time series without having to re-generate images. Indeed,
     the user should not even need access to the underlying files to be able to
-    explore the data.</p>
+    explore the data. The front-end should re-render dynamically.</p>
     <p>The present system serves two uses. It is both a monitoring tool and a tool to track
     our performance relative to other forecasting centers. However, since it
     can only generate static images it cannot simultaneously display both
@@ -57,6 +57,8 @@
             <li>Pan/zoom to spike of interest</li>
             <li>Reveal using tooltips the values of particular data points</li>
             <li>Assign colors using a helpful tooltip</li>
+            <li>Save SVG elements to PNG</li>
+            <li>Reproduce plot state from URL hash</li>
         </ul>
         <h3>Dependencies</h3>
         <ul>
@@ -66,7 +68,9 @@
         a JavaScript library called d3.js to do the heavy lifting when it
         comes to svg element rendering.</p>
         <h3>Issues</h3>
-        <p>The above proposal has been technically feasible for many years.</p>
+        <p>The above proposal has been technically feasible for many years
+        but has never been considered as a viable solution since there
+        was a requirement to have publication PNG images readily available.</p>
     <h2>Summary</h2>
     <p>The existing solution while functional is not scalable</p>
 </body>
