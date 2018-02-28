@@ -32,18 +32,28 @@
     a high-level and low-level view of the data. The proposed solution aims to
     unify these use cases by providing the user with an interface adapted for
     both diagnosis and long term summarisation.</p>
-    <h2>Issues</h2>
+    <h2>Existing issues</h2>
     <p>As requests for more detailed plot types and metrics are made to the
     existing front-end, there is a combinatorial explosion of plots.</p>
     <h3>Labour intensive data exploration</h3>
+    <p>As mentioned previously, to find a single date that may be causing
+    an issue a user must regenerate plots with more and more precise
+    time intervals. This cycle is time-consuming, as well as taking time to
+    change the --ylims flag the user may need to draft a new set of options
+    to make c4plot isolate a single image. It may also inadvertedly alter
+    images being displayed on a website viewable by other users.</p>
     <h3>Combinatorial explosion of plots</h3>
+    <p>While having one or two metrics displayed for a handful of regions is
+    super light-weight and lightning fast. Turning on all bells and whistles
+    can quickly result in the generation of several million plots. Of which,
+    inevitably the plot needed to diagnose a problem will not be present.</p>
     <h3>User driven plotting</h3>
     <p>More and more, users of the data are requesting that plots be generated
     in a bespoke manner. Individually, these requests seem sensible. But
     aggregated over half a dozen users it becomes difficult to service their
     requests. A tool is needed to generate bespoke plots on a per-user basis
     without a need for manual intervention from the site-owner.</p>
-    <h2>Proposal</h2>
+    <h2>Proposed solution</h2>
     <p>The replacement tool should make it easier to diagnose issues
     affecting one or more ocean model</p>
         <h3>Features</h3>
@@ -59,7 +69,9 @@
         <p>The only hard dependency of this proposed tool is to leverage
         a JavaScript library called d3.js to do the heavy lifting when it
         comes to svg element rendering.</p>
+        <h3>Issues</h3>
+        <p>The above proposal has been technically feasible for many years.</p>
     <h2>Summary</h2>
-    <p>The existing solution while functional it is not scalable</p>
+    <p>The existing solution while functional is not scalable</p>
 </body>
 </html>
