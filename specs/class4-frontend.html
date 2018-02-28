@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="reset.css" media="all">
 </head>
 <body>
-    <h1>Technical specification</h1>
+    <h1>Class 4 front-end technical specification</h1>
     <ul>
         <li>Introduction</li>
         <li>Overview</li>
@@ -15,9 +15,51 @@
         <li>Summary</li>
     </ul>
     <h2>Introduction</h2>
+    <p>The existing front-end for Class 4 statistics is not scalable.</p>
     <h2>Overview</h2>
+    <p>Exploring ocean verification results at present requires the user to
+    repeatedly generate static images from NetCDF files.
+    To isolate a particular issue, the user must iteratively re-run c4plot
+    using more and more precise command line arguments to bisect the affected
+    dates.</p>
+    <p>A more desirable solution would be for the user to click/zoom to the
+    affected portion of the time series without having to re-generate images. Indeed,
+    the user should not even need access to the underlying files to be able to
+    explore the data.</p>
+    <p>The present system serves two uses. It is both a monitoring tool and a tool to track
+    our performance relative to other forecasting centers. However, since it
+    can only generate static images it cannot simultaneously display both
+    a high-level and low-level view of the data. The proposed solution aims to
+    unify these use cases by providing the user with an interface adapted for
+    both diagnosis and long term summarisation.</p>
     <h2>Issues</h2>
+    <p>As requests for more detailed plot types and metrics are made to the
+    existing front-end, there is a combinatorial explosion of plots.</p>
+    <h3>Labour intensive data exploration</h3>
+    <h3>Combinatorial explosion of plots</h3>
+    <h3>User driven plotting</h3>
+    <p>More and more, users of the data are requesting that plots be generated
+    in a bespoke manner. Individually, these requests seem sensible. But
+    aggregated over half a dozen users it becomes difficult to service their
+    requests. A tool is needed to generate bespoke plots on a per-user basis
+    without a need for manual intervention from the site-owner.</p>
     <h2>Proposal</h2>
+    <p>The replacement tool should make it easier to diagnose issues
+    affecting one or more ocean model</p>
+        <h3>Features</h3>
+        <ul>
+            <li>Add/remove individual lines</li>
+            <li>Pan/zoom to spike of interest</li>
+            <li>Reveal using tooltips the values of particular data points</li>
+        </ul>
+        <h3>Dependencies</h3>
+        <ul>
+            <li>d3.js</li>
+        </ul>
+        <p>The only hard dependency of this proposed tool is to leverage
+        a JavaScript library called d3.js to do the heavy lifting when it
+        comes to svg element rendering.</p>
     <h2>Summary</h2>
+    <p>The existing solution while functional it is not scalable</p>
 </body>
 </html>
