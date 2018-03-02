@@ -121,7 +121,7 @@
         the new page will also provide the following features
         <ul>
             <li>Add/remove individual lines</li>
-            <li>Pan/zoom to spike of interest</li>
+            <li>Pan/zoom to data of interest</li>
             <li>Tooltips to reveal the values of particular data points</li>
             <li>Custom colors and line styles for individual trends</li>
             <li>Custom labelling, e.g. legend, x-axis, y-axis and title labels</li>
@@ -129,8 +129,8 @@
             <li>Reproduce plot state from URL hash</li>
             <li>Signal processing of raw trends using JavaScript</li>
         </ul>
-        <p>The intention of the above features is to enable the user to tunnel
-        into the data and customise their plot(s) to their own tastes. This should
+        <p>The intention of the above features is to enable the user to explore
+        the data and to customise their plot(s) to their own tastes. This should
         take the burden of generating plots away from the data owner altogether.
         The data owner is simply responsible for computing the raw statistics, the
         user is then free to process the data using the above features.</p>
@@ -154,11 +154,72 @@
         purpose server available to all staff is an Apache server with
         very few modules loaded. All that is required is access via PHP to
         an image conversion tool such as convert or ImageMagick.</p>
+    <h2>Road map</h2>
+    <p>The above features will not be available at the first release, version 0.1.0. The
+    intention is to produce a minimal viable product (MVP) during the first
+    sprint and add layers of features at each subsequent iteration. Although not
+    the actual release schedule, the following list gives some idea to the rate of
+    progress expected. And also an idea of the capabilities of the finished product.</p>
+    <ul>
+        <li>0.1.0 - Display time series images equivalent of c4plot</li>
+        <li>0.2.0 - Extend menu to replicate c4plot front-end options, regions, metrics etc.</li>
+        <li>0.3.0 - Customise colors, y-limits and add/remove lines</li>
+        <li>0.4.0 - Support tool tips, custom labels and legends</li>
+        <li>0.5.0 - Add signal processing, annual/monthly means, rolling means etc.</li>
+        <li>0.6.0 - Add lead time diagrams with customisable forecast modes/lead times</li>
+        <li>0.7.0 - Add profile diagrams with zoomable depths</li>
+        <li>0.8.0 - Add pan/zoom feature to ease navigation</li>
+        <li>0.9.0 - Add SVG to PNG support (if viable)</li>
+        <li>0.10.0 - Add support for relative statistics, user selected reference trend</li>
+        <li>0.11.0 - Add spike filtering, a potentially easier to use y-limit selector</li>
+        <li>0.12.0 - Add cross-browser compatibility, IE, firefox, Chrome etc.</li>
+        <li>...</li>
+        <li>1.0.0 - First stable release</li>
+    </ul>
+    <p>From 1.0.0 onwards the tool will be considered stable. Features
+    implemented at that point will be maintained for backwards compatibility
+    purposes.</p>
+    <h2>Testing strategy, design principles and philosophy</h2>
+    <p>The development cycle will place an emphasis on having tests, not
+    necessarily test-first development or completely fine grained unit
+    tests, but certainly having tests will be key to the success of the
+    application. When extending the code, design patterns that encourage
+    decoupling will be used where appropriate. Care will be taken
+    to only use a design pattern when the benefits of using it are staggering,
+    as even a single layer of indirection can add an unacceptable cognitive
+    load to future readers of the code.
+    MV* patterns are an obvious example of a pattern that pays for itself.
+    It is so common place that all front-end developers know at least one
+    and it reduces lines of code since it is a natural fit to event-driven applications.</p>
+    <p>Where possible the front-end will be written in pure JavaScript to
+    be as simple as possible and to prevent frameworks from restricting
+    the design too much. As JavaScript is a functional language with first-class
+    functions it seems wise to opt for functional programming constructs
+    where appropriate. For example, Promises will be favoured over call backs
+    and pure functions will be favoured over objects with state.</p>
+    <h2>Code quality</h2>
+    <p>Adding features without writing tests is a good way to prototype a
+    design and to quickly get an application off the ground. But it can quickly
+    lead to spaghetti code if care isn't taken to clean the code on a regular
+    basis. Having automated tests while they themselves don't guarantee code quality.
+    They give developers the confidence to clean up the code
+    safe in the knowledge that their changes will not break the software.
+    Or if they do break the code, it will give the developer a chance to
+    improve the test suite to ensure future breakages do not re-emerge.</p>
+    <h2>Old browser support</h2>
+    <p>To make the most of the latest language features in ECMAScript 6 (and ES7), this
+    application will make no effort to support old browsers. But since it will likely
+    be used in pods and conference rooms that only have Internet Explorer some effort
+    will be put in to ensuring cross browser compatibility.</p>
     <h2>Summary</h2>
-    <p>The existing solution while functional is not scalable and is very
-    rigid. The replacement system should solve the scalability and flexibility
-    problems, by eliminating the need to pre-generate several hundred thousand
-    images daily and allows the user to customise individual plots to their
-    chosen aesthetic needs.</p>
+    <p>The existing Class 4 front-end while functional and full-featured is not scalable
+    and is highly rigid. The replacement system should solve the scalability and flexibility
+    problems by eliminating the need to pre-generate images daily. It will allow users to
+    customise individual plots to their chosen aesthetic needs. And hopefully extend
+    its functionality beyond the existing system given enough time.</p>
+    <p>The features outlined above will be implemented in an organised way with
+    release notes accompanying each significant upgrade. The overall workload is not
+    expected to be high but the release velocity is expected to decrease as the size of the
+    code base grows.</p>
 </body>
 </html>
