@@ -10,17 +10,32 @@
     <h1>Class 4 front-end technical specification</h1>
     <div id="toc"></div>
     <h2>Introduction</h2>
-    <p>The existing front-end for Class 4 statistics is not scalable.</p>
+    <p>The existing front-end for Class 4 statistics is not scalable. As
+    additional menu options are added the time required to generate the
+    extra plots grows super-linearly. This scaling is a direct result
+    of the system's architecture. The decision was taken early on to serve
+    pre-computed static images. Initially, this seemed like a good idea
+    since it was simple to implement and could quickly visualise results. But
+    over time the limitations of this approach have been exposed. A more
+    scalable solution, although not a panacea, would be to allow a user
+    to dynamically generate images.</p>
+    <p>The approach taken here is to leverage web standards and
+    JavaScript visualisation libraries to craft a dynamic and interactive
+    user experience. Different technical challenges exist with this
+    approach, such as converting SVG to PNG without a dedicated server,
+    but overall the benefits greatly outweigh the drawbacks
+    of the existing system.</p>
     <h2>Overview</h2>
     <p>Exploring ocean verification results at present requires the user to
-    repeatedly generate static images from NetCDF files.
+    repeatedly generate static images from NetCDF files using a relatively
+    complicated command line tool called c4plot.
     To isolate a particular issue, the user must iteratively re-run c4plot
-    using more and more precise command line arguments to bisect the affected
+    using more and more precise arguments to bisect the affected
     dates.</p>
     <p>A more desirable solution would be for the user to click/zoom to the
     affected portion of the time series without having to re-generate images. Indeed,
     the user should not even need access to the underlying files to be able to
-    explore the data. The front-end should re-render dynamically.</p>
+    explore the data. The front-end should re-render the desired data dynamically.</p>
     <p>The present system serves two uses. It is both a monitoring tool and a tool to track
     our performance relative to other forecasting centers. However, since it
     can only generate static images it cannot simultaneously display both
@@ -29,15 +44,23 @@
     both diagnosis and long term summarisation.</p>
     <h2>Current system</h2>
     <img src="images/current-flow.gif" alt="" />
-    <p>As requests for more detailed plot types and metrics are made to the
-    existing front-end, there is a combinatorial explosion of plots.</p>
+    <p>The workflow under the current system involves a user (with access
+    to statistics files) either plotting a vast number of images
+    or when diagnosing a particular issue iteratively re-plotting static
+    images from the command line. The web site is solely a menu system for
+    navigating to particular images. It has no ability to generate images
+    if the desired image is not available.</p>
+
     <h3>Labour intensive data exploration</h3>
-    <p>As mentioned previously, to find a single date that may be causing
-    an issue a user must regenerate plots with more and more precise
-    time intervals. This cycle is time-consuming, as well as taking time to
-    change the --ylims flag the user may need to draft a new set of options
-    to make c4plot isolate a single image. It may also inadvertedly alter
-    images being displayed on a website viewable by other users.</p>
+    <p>Data exploration with c4plot is time consuming. Under the current
+    system to find a date related to a spike, a user must regenerate
+    plots with shorter and shorter time intervals until the x-axis
+    labels resolve the date. A JavaScript approach would simply show
+    a tooltip on hover with the date information. The c4plot system
+    also requires the user to restore the original image after the
+    data exploration has completed, if the website is viewable by other
+    users.</p>
+
     <h3>Combinatorial explosion of plots</h3>
     <p>While having one or two metrics displayed for a handful of regions is
     super light-weight and lightning fast. Turning on all bells and whistles
