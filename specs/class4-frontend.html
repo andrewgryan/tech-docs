@@ -19,12 +19,12 @@
     over time the limitations of this approach have been exposed. A more
     scalable solution, although not a panacea, would be to allow a user
     to dynamically generate images.</p>
-    <p>The approach taken here is to leverage web standards and
-    JavaScript visualisation libraries to craft a dynamic and interactive
-    user experience. Different technical challenges exist with this
-    approach, such as converting SVG to PNG without a dedicated server,
-    but overall the benefits greatly outweigh the drawbacks
-    of the existing system.</p>
+    <p>The new approach aims to leverage web standards and
+    JavaScript visualisation libraries such as d3.js to create a
+    dynamic and interactive user experience. Unique technical challenges
+    exist with this approach, such as converting SVG to PNG, but overall
+    the benefits of dynamically generated content outweigh the drawbacks
+    of exhaustively generating static images.</p>
     <h2>Overview</h2>
     <p>Exploring ocean verification results at present requires the user to
     repeatedly generate static images from NetCDF files using a relatively
@@ -35,21 +35,26 @@
     <p>A more desirable solution would be for the user to click/zoom to the
     affected portion of the time series without having to re-generate images. Indeed,
     the user should not even need access to the underlying files to be able to
-    explore the data. The front-end should re-render the desired data dynamically.</p>
+    explore the data. The front-end should re-render the desired portion of
+    the data dynamically.</p>
     <p>The present system serves two uses. It is both a monitoring tool and a tool to track
     our performance relative to other forecasting centers. However, since it
     can only generate static images it cannot simultaneously display both
     a high-level and low-level view of the data. The proposed solution aims to
     unify these use cases by providing the user with an interface adapted for
     both diagnosis and long term summarisation.</p>
+
     <h2>Current system</h2>
     <img src="images/current-flow.gif" alt="" />
     <p>The workflow under the current system involves a user (with access
-    to statistics files) either plotting a vast number of images
-    or when diagnosing a particular issue iteratively re-plotting static
-    images from the command line. The web site is solely a menu system for
-    navigating to particular images. It has no ability to generate images
-    if the desired image is not available.</p>
+    to statistics files) either plotting a vast number of images when
+    trying to anticipate all users needs or iteratively re-plotting individual
+    images from the command line when diagnosing a particular issue. Either
+    scenario is time consuming and a waste of resources, both human and computational.
+    The web site, in it's current format, is solely a menu system for navigating
+    to images. It has no ability to generate images if an image is not available
+    nor does it have the ability to rescale axes of a particular image. This
+    design gives rise to the following issues.</p>
 
     <h3>Labour intensive data exploration</h3>
     <p>Data exploration with c4plot is time consuming. Under the current
@@ -61,17 +66,36 @@
     data exploration has completed, if the website is viewable by other
     users.</p>
 
+    <h3>Spike obfuscation</h3>
+    <p>Since the images are generated once and can not easily be re-generated
+    it is often the case that a missing data value, erroneously treated as a
+    valid data point, can obfuscate the information in an entire image. In
+    some cases this may render the utility of an entire website valueless as
+    users are mainly interested in that one image.
+    The proposed dynamic rendering solution should have a feature to
+    eliminate the obscuring effects of spikes, by either allowing the user
+    to adjust the y-limits or to filter bad data points.</p>
+
     <h3>Combinatorial explosion of plots</h3>
     <p>While having one or two metrics displayed for a handful of regions is
     super light-weight and lightning fast. Turning on all bells and whistles
     can quickly result in the generation of several million plots. Of which,
     inevitably the plot needed to diagnose a problem will not be present.</p>
+
+    <h3>Cluttered images</h3>
+    <p>In some cases there are dozens of models being compared. In these
+    scenarios all available lines are displayed simultaneously which results
+    in cluttered and hard to read plots. Instead of re-plotting subsets of
+    the models, a dynamic solution would provide the user with checkboxes
+    to add/remove individual models as desired.</p>
+
     <h3>User driven plotting</h3>
     <p>More and more, users of the data are requesting that plots be generated
     in a bespoke manner. Individually, these requests seem sensible. But
     aggregated over half a dozen users it becomes difficult to service their
     requests. A tool is needed to generate bespoke plots on a per-user basis
     without a need for manual intervention from the site-owner.</p>
+
     <h2>Proposed system</h2>
     <img src="images/future-flow.gif" alt="" />
     <p>By eliminating interaction with the command line, the replacement tool should
@@ -80,26 +104,48 @@
     simply click on a checkbox and display particular trends of interest.
     </p>
         <h3>Features</h3>
+        As well as reproducing all options from the current menu system
+        the new page will also provide the following features
         <ul>
             <li>Add/remove individual lines</li>
             <li>Pan/zoom to spike of interest</li>
-            <li>Reveal using tooltips the values of particular data points</li>
-            <li>Assign colors using a helpful tooltip</li>
+            <li>Tooltips to reveal the values of particular data points</li>
+            <li>Custom colors and line styles for individual trends</li>
+            <li>Custom labelling, e.g. legend, x-axis, y-axis and title labels</li>
             <li>Save SVG elements to PNG</li>
             <li>Reproduce plot state from URL hash</li>
+            <li>Signal processing of raw trends using JavaScript</li>
         </ul>
-        <h3>Dependencies</h3>
+        <p>The intention of the above features is to enable the user to tunnel
+        into the data and customise their plot(s) to their own tastes. This should
+        take the burden of generating plots away from the data owner altogether.
+        The data owner is simply responsible for computing the raw statistics, the
+        user is then free to process the data using the above features.</p>
+        <h3>Libraries</h3>
         <ul>
-            <li>d3.js</li>
+            <li><a href="https://d3js.org/">D3.js - Data Driven Documents</a></li>
         </ul>
-        <p>The only hard dependency of this proposed tool is to leverage
-        a JavaScript library called d3.js to do the heavy lifting when it
-        comes to svg element rendering.</p>
-        <h3>Issues</h3>
+        <p>The only anticipated dependency of this new tool is a library
+        called d3.js, which will be used to do the heavy lifting of 
+        rendering the SVG elements.</p>
+        <h3>Server-side SVG to PNG</h3>
         <p>The above proposal has been technically feasible for many years
-        but has never been considered as a viable solution since there
-        was a requirement to have publication PNG images readily available.</p>
+        but was never entertained as a viable solution since there
+        was a requirement to produce publication quality PNG images.
+        Python's matplotlib readily produced high-quality images with little
+        effort so the alternative JavaScript approaches were never pursued.
+        The technical challenge that needs to be overcome is to find a way
+        to convert SVG to PNG from the browser.</p>
+        <p>Given that a dedicated verification server is not a possibility,
+        some thought must be given to find a solution. The most common general
+        purpose server available to all staff is an Apache server with
+        very few modules loaded. All that is required is access via PHP to
+        an image conversion tool such as convert or ImageMagick.</p>
     <h2>Summary</h2>
-    <p>The existing solution while functional is not scalable</p>
+    <p>The existing solution while functional is not scalable and is very
+    rigid. The replacement system should solve the scalability and flexibility
+    problems, by eliminating the need to pre-generate several hundred thousand
+    images daily and allows the user to customise individual plots to their
+    chosen aesthetic needs.</p>
 </body>
 </html>
