@@ -78,9 +78,11 @@
 
     <h3>Combinatorial explosion of plots</h3>
     <p>While having one or two metrics displayed for a handful of regions is
-    super light-weight and lightning fast. Turning on all bells and whistles
+    light-weight and lightning fast. Turning on all bells and whistles
     can quickly result in the generation of several million plots. Of which,
-    inevitably the plot needed to diagnose a problem will not be present.</p>
+    inevitably the plot needed to diagnose a problem will not be present.
+    Migrating to an on demand system of plotting will drastically reduce
+    the need to populate the entire plotting-space ahead of time.</p>
 
     <h3>Cluttered images</h3>
     <p>In some cases there are dozens of models being compared. In these
@@ -95,6 +97,17 @@
     aggregated over half a dozen users it becomes difficult to service their
     requests. A tool is needed to generate bespoke plots on a per-user basis
     without a need for manual intervention from the site-owner.</p>
+
+    <h3>Rigid labelling</h3>
+    <p>Opening up the legend, x and y axis labels and title to user customisation
+    would allow users to sculpt bespoke plots by themselves without having to
+    email data-owners to re-plot single images. The benefits of this feature
+    is a human-resource scaling not a computational scaling.</p>
+
+    <h3>Rigid line styling</h3>
+    <p>In the same vein as labelling allowing the user to customise individual colors,
+    markers and linestyles will remove the burden currently on the data-owner
+    to produce better looking plots.</p>
 
     <h2>Proposed system</h2>
     <img src="images/future-flow.gif" alt="" />
