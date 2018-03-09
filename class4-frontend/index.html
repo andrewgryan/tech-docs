@@ -12,8 +12,8 @@
     <h2>Introduction</h2>
     <p>The existing front-end for Class 4 statistics is not scalable. As
     additional menu options are added the time required to generate the
-    extra plots grows super-linearly. This scaling is a direct result
-    of the system's architecture. The decision was taken early on to serve
+    extra plots grows super-linearly. This scaling is a consequence
+    of the present system's architecture. The decision was taken early on to serve
     pre-computed static images. Initially, this seemed like a good idea
     since it was simple to implement and could quickly visualise results. But
     over time the limitations of this approach have been exposed. A more
@@ -30,13 +30,14 @@
     repeatedly generate static images from NetCDF files using a relatively
     complicated command line tool called c4plot.
     To isolate a particular issue, the user must iteratively re-run c4plot
-    using more and more precise arguments to bisect the affected
-    dates.</p>
+    to isolate the affected dates. By initially plotting the full time series,
+    then shorter and shorter time windows until the x-axis ticks indicate the day
+    the problematic event occurred.</p>
     <p>A more desirable solution would be for the user to click/zoom to the
-    affected portion of the time series without having to re-generate images. Indeed,
-    the user should not even need access to the underlying files to be able to
-    explore the data. The front-end should re-render the desired portion of
-    the data dynamically.</p>
+    portion of the time series containing the issue without having to
+    re-generate images. Indeed, the user should not even need access to the
+    underlying files to be able to explore the data. The front-end should
+    re-render the plot dynamically.</p>
     <p>The present system serves two uses. It is both a monitoring tool and a tool to track
     our performance relative to other forecasting centers. However, since it
     can only generate static images it cannot simultaneously display both
@@ -57,54 +58,91 @@
     design gives rise to the following issues.</p>
 
     <h3>Labour intensive data exploration</h3>
+    <h4>Issue</h4>
     <p>Data exploration with c4plot is time consuming. Under the current
     system to find a date related to a spike, a user must regenerate
     plots with shorter and shorter time intervals until the x-axis
-    labels resolve the date. A JavaScript approach would simply show
-    a tooltip on hover with the date information. The c4plot system
-    also requires the user to restore the original image after the
-    data exploration has completed, if the website is viewable by other
-    users.</p>
+    labels resolve the date.</p>
+    <p>The c4plot system also requires the user to restore the original
+    image after the data exploration has completed, to prevent other users
+    seeing an incomplete the website.</p>
+
+    <h4>Proposed solution</h4>
+    <p>A JavaScript approach would simply show a tooltip on hover with the date
+    information, removing the need to zoom the x-axis.
+    Also, the image will be rendered on a per-user basis allowing
+    individual users to explore the same data independently of each other's
+    work. Thus removing the possibility of an image not displaying correctly
+    for visitors to the site.</p>
 
     <h3>Spike obfuscation</h3>
+    <h4>Issue</h4>
     <p>Since the images are generated once and can not easily be re-generated
     it is often the case that a missing data value, erroneously treated as a
     valid data point, can obfuscate the information in an entire image. In
     some cases this may render the utility of an entire website valueless as
-    users are mainly interested in that one image.
-    The proposed dynamic rendering solution should have a feature to
+    users are mainly interested in that one image.</p>
+    <h4>Proposed solution</h4>
+    <p>The proposed dynamic rendering solution should have a feature to
     eliminate the obscuring effects of spikes, by either allowing the user
     to adjust the y-limits or to filter bad data points.</p>
 
     <h3>Combinatorial explosion of plots</h3>
+    <h4>Issue</h4>
     <p>While having one or two metrics displayed for a handful of regions is
-    light-weight and lightning fast. Turning on all bells and whistles
-    can quickly result in the generation of several million plots. Of which,
-    inevitably the plot needed to diagnose a problem will not be present.
-    Migrating to an on demand system of plotting will drastically reduce
+    light-weight and lightning fast, turning on all bells and whistles
+    can quickly result in the generation of several million plots, of which,
+    inevitably the plot needed to diagnose a problem will not be present.</p>
+    <h4>Proposed solution</h4>
+    <p>Migrating to an on demand system of plotting will drastically reduce
     the need to populate the entire plotting-space ahead of time.</p>
 
     <h3>Cluttered images</h3>
-    <p>In some cases there are dozens of models being compared. In these
-    scenarios all available lines are displayed simultaneously which results
-    in cluttered and hard to read plots. Instead of re-plotting subsets of
+    <h4>Issue</h4>
+    <p>Under the current system, it is often the case that dozens of models
+    need to be compared under the same inter-comparison framework. In these
+    scenarios a line for each model is displayed on the same plot which results
+    in cluttered and hard to interpret plots.</p>
+    <h4>Proposed solution</h4>
+    <p>Instead of re-plotting subsets of
     the models, a dynamic solution would provide the user with checkboxes
-    to add/remove individual models as desired.</p>
+    to add/remove individual models as desired. In fact, any sub-set of lines
+    can be placed on the same plot, for example all regions for a single model
+    or several lead times for several models. The possibilities are limitless
+    and go way beyond the current systems ability to compare trends.</p>
 
     <h3>User driven plotting</h3>
+    <h4>Issue</h4>
     <p>More and more, users of the data are requesting that plots be generated
     in a bespoke manner. Individually, these requests seem sensible. But
     aggregated over half a dozen users it becomes difficult to service their
-    requests. A tool is needed to generate bespoke plots on a per-user basis
-    without a need for manual intervention from the site-owner.</p>
+    requests in a timely manner.</p>
+    <h4>Proposed solution</h4>
+    <p>A tool to generate bespoke plots on a per-user basis
+    without a need for manual intervention from the site-owner. The most obvious
+    candidate is a JavaScript solution which dynamically selects, styles and
+    labels lines to the users needs.</p>
 
     <h3>Rigid labelling</h3>
+    <h4>Issue</h4>
+    <p>The legend is effectively static under the current plotting system, which
+    inevitably draws requests for alterations since no particular naming or
+    line style convention can fit all image use cases. Some images will be
+    used for presentations, some for publication and others for daily
+    monitoring. Different levels of information are needed for each use case.</p>
+    <h4>Proposed solution</h4>
     <p>Opening up the legend, x and y axis labels and title to user customisation
-    would allow users to sculpt bespoke plots by themselves without having to
+    would allow users to sculpt publication quality plots by themselves without having to
     email data-owners to re-plot single images. The benefits of this feature
     is a human-resource scaling not a computational scaling.</p>
 
     <h3>Rigid line styling</h3>
+    <h4>Issue</h4>
+    <p>As well as static line labelling the current system must predict the
+    needs of its users when it comes to color, marker or line style combinations.
+    This rigidity frustrates users preparing slides for presentations or images
+    for publication.</p>
+    <h4>Proposed solution</h4>
     <p>In the same vein as labelling allowing the user to customise individual colors,
     markers and linestyles will remove the burden currently on the data-owner
     to produce better looking plots.</p>
@@ -117,7 +155,7 @@
     simply click on a checkbox and display particular trends of interest.
     </p>
         <h3>Features</h3>
-        As well as reproducing all options from the current menu system
+        As well as reproducing all of the options from the current menu system
         the new page will also provide the following features
         <ul>
             <li>Add/remove individual lines</li>
@@ -126,7 +164,7 @@
             <li>Custom colors and line styles for individual trends</li>
             <li>Custom labelling, e.g. legend, x-axis, y-axis and title labels</li>
             <li>Save SVG elements to PNG</li>
-            <li>Reproduce plot state from URL hash</li>
+            <li>Reproduce application state from URL, to make images shareable by email</li>
             <li>Signal processing of raw trends using JavaScript</li>
         </ul>
         <p>The intention of the above features is to enable the user to explore
@@ -185,31 +223,32 @@
     tests, but certainly having tests will be key to the success of the
     application. When extending the code, design patterns that encourage
     decoupling will be used where appropriate. Care will be taken
-    to only use a design pattern when the benefits of using it are staggering,
+    to only use a design pattern when the benefits of using it are enormous,
     as even a single layer of indirection can add an unacceptable cognitive
     load to future readers of the code.
-    MV* patterns are an obvious example of a pattern that pays for itself.
+    <a href="#appendix-mvstar">MV*</a> patterns are an obvious example of a pattern that pays for itself.
     It is so common place that all front-end developers know at least one
     and it reduces lines of code since it is a natural fit to event-driven applications.</p>
     <p>Where possible the front-end will be written in pure JavaScript to
     be as simple as possible and to prevent frameworks from restricting
     the design too much. As JavaScript is a functional language with first-class
     functions it seems wise to opt for functional programming constructs
-    where appropriate. For example, Promises will be favoured over call backs
-    and pure functions will be favoured over objects with state.</p>
+    where appropriate. For example, <a href="#appendix-promise">Promises</a>
+    will be favoured over call backs and pure functions will be favoured over
+    objects with state.</p>
     <h2>Code quality</h2>
     <p>Adding features without writing tests is a good way to prototype a
     design and to quickly get an application off the ground. But it can quickly
     lead to spaghetti code if care isn't taken to clean the code on a regular
-    basis. Having automated tests while they themselves don't guarantee code quality.
-    They give developers the confidence to clean up the code
+    basis. Having automated tests, while they themselves don't guarantee code
+    quality, give developers the confidence to clean up the code
     safe in the knowledge that their changes will not break the software.
     Or if they do break the code, it will give the developer a chance to
     improve the test suite to ensure future breakages do not re-emerge.</p>
     <h2>Old browser support</h2>
     <p>To make the most of the latest language features in ECMAScript 6 (and ES7), this
     application will make no effort to support old browsers. But since it will likely
-    be used in pods and conference rooms that only have Internet Explorer some effort
+    be used in pods and conference rooms that may only have Internet Explorer some effort
     will be put in to ensuring cross browser compatibility.</p>
     <h2>Summary</h2>
     <p>The existing Class 4 front-end while functional and full-featured is not scalable
@@ -222,5 +261,28 @@
     expected to be high but the release velocity is expected to decrease as the size of the
     code base grows. Technical challenges, like converting SVG to PNG, and learning curves,
     like understanding d3.js, have potential to slow the expected rate of progress.</p>
+
+    <h2>Appendix</h2>
+    <a name="appendix-mvstar"></a>
+    <h3>MV* Patterns</h3>
+    <p>Model View Controller (MVC), Model View Presenter (MVP), Model View View
+    Model (MVVM), etc. patterns are ubiquitous in JavaScript and web
+    applications. They are collectively referred to as MV*, where * is a
+    wildcard, and are a common way of spltting responsibilities for displaying
+    dynamically updating data.</p>
+    <p>Models are objects that contain state and notify
+    listeners when they change. Views are pieces of UI, HTML elements typically,
+    that react to Model state changes. And depending on the pattern adopted
+    there is an object who has the responsibility to react to events, either
+    human or machine created, and update the model state.</p>
+    <a name="appendix-promise"></a>
+    <h3>Promises</h3>
+    <p>Promises are a functional programming concept, natively available in ES6,
+    that make callbacks composable. Instead of nesting callbacks inside
+    each other, Promises are objects that are "then-able", meaning they
+    have a then method, and have a state, either "resolved", "pending" or
+    "rejected". This makes it easier to chain tasks together that are
+    asynchronous in nature, like XMLHttpRequests, and then write code in a
+    more synchronous style, which is far easier to reason about.</p>
 </body>
 </html>

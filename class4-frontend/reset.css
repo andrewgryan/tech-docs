@@ -9,7 +9,12 @@ h1 {
     color: SteelBlue;
 }
 
-h2, h4, h5, li, p {
+h4 {
+    font-weight: 500;
+    color: black;
+}
+
+h2, h5, li, p {
     font-weight: 100;
 }
 
