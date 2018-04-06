@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css" media="all">
+body {
+    width: 760px;
+    margin: auto;
+    font-family: sans-serif;
+}
+h1, h2, p {
+    font-weight: 100;
+}
+
+.author {
+    font-size: 0.8em;
+    float: right;
+}
+
+.date {
+    font-size: 0.8em;
+    float: left;
+}
+
+.clearfix {
+    overflow: auto;
+}
+    </style>
+</head>
+<body>
+    <h1 id="title">FFC/SEPA verification script</h1>
+    <div class="clearfix">
+        <div class="author">Andrew Ryan</div>
+        <div class="date">Fri Apr 6</div>
+    </div>
+
+    <h2>Background</h2>
+    <p>The Flood Forecasting Centre (FFC) and the Scottish Environment
+    Protection Agency (SEPA) are interested in verifying high resolution
+    ensemble forecasts against rainfall radar and rain gauges for a number
+    of river catchments across England, Wales and Scotland.</p>
+
+    <h2>Existing solution</h2>
+    <p>A script has been written by Gabriella Csima which uses iris Cube
+    structures to compute catchment means for radar and ensemble forecast precipitation
+    accumulations.</p>
+
+    <h2>Performance issues (memory/computation)</h2>
+    <p>The cube architecture while it has many benefits such as multiple file
+    format support, coordinate transformations and masking catchment shapes. In
+    this use case it is unfeasible to load all data into cubes. It would be more
+    efficient in both memory and computations to work out which grid cells
+    relate to each catchment and to iteratively compute averages.</p>
+
+    <h2>User interface improvements</h2>
+    <p>A little piece of text</p>
+
+    <h2>Conclusions</h2>
+    <p>With a little bit of thought and some refactoring
+    this script could become a nice lightweight utility for
+    verifying river catchments</p>
+
+    <script charset="utf-8">
+document.title = document.getElementById("title").innerHTML;
+    </script>
+</body>
+</html>
