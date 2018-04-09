@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script src="script.js"></script>
     <style type="text/css" media="all">
 body {
     width: 760px;
@@ -11,6 +12,14 @@ body {
 }
 h1, h2, p {
     font-weight: 100;
+}
+
+img {
+    width: 100%;
+}
+
+button {
+    width: 50%;
 }
 
 .author {
@@ -40,6 +49,10 @@ h1, h2, p {
     Protection Agency (SEPA) are interested in verifying high resolution
     ensemble forecasts against rainfall radar and rain gauges for a number
     of river catchments across England, Wales and Scotland.</p>
+    <p>There are 898 defined catchments for FFC and 225 for SEPA. The
+    rain gauge and radar observations are gridded.</p>
+
+    <div id="ffc-catchments"></div>
 
     <h2>Existing solution</h2>
     <p>A script has been written by Gabriella Csima which uses iris Cube
@@ -52,6 +65,8 @@ h1, h2, p {
     this use case it is unfeasible to load all data into cubes. It would be more
     efficient in both memory and computations to work out which grid cells
     relate to each catchment and to iteratively compute averages.</p>
+
+    <img src="screenshot.png" alt="" />
 
     <h2>User interface</h2>
     <p>At present, the user interface requires 7 arguments, two of which
