@@ -53,8 +53,44 @@ h1, h2, p {
     efficient in both memory and computations to work out which grid cells
     relate to each catchment and to iteratively compute averages.</p>
 
-    <h2>User interface improvements</h2>
-    <p>A little piece of text</p>
+    <h2>User interface</h2>
+    <p>At present, the user interface requires 7 arguments, two of which
+    are namelist files who themselves contain a list of arguments. While
+    practical for getting the script developed there is plenty of scope
+    for improvement.</p>
+
+    <pre>
+    > ./GetData_for_all_quarterly_hourly_mem_handling_for_Andy.py \
+        FFC \
+        Winter \
+        Day1 \
+        09 \
+        namelist_test_PART.txt \
+        20151214 \
+        catchmentlist_PART.txt
+    </pre>
+
+    <p>The first namelist contains the following settings</p>
+    <pre>
+    G2G
+    fullcats
+    4
+    96
+    /data/users/frrn/ffc/
+    output
+    PART
+    talk
+    </pre>
+
+    <p>The second namelist contains the following settings</p>
+    <pre>
+    Y
+    0, 50, 100, 150
+    </pre>
+
+    <p>The two namelist settings could easily be rolled into the command
+    line interface. And the number of arguments can be reduced by choosing
+    sensible defaults.</p>
 
     <h2>Conclusions</h2>
     <p>With a little bit of thought and some refactoring
