@@ -49,8 +49,8 @@ generate roads, rivers, cities etc.
 
 ### Cloud services
 
-Without data the view layer has nothing to display. The data powering FOREST
-is hosted by Amazon using their various web services (AWS), the forecast and
+Without data the view layer has very little to display aside from a view widgets and a map.
+The data powering FOREST is hosted by Amazon using their various web services (AWS), the forecast and
 observation data are stored in S3 buckets.
 
 To deliver this data in a timely manner a dedicated Rose suite has been written
