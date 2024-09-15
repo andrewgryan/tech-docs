@@ -1,0 +1,2 @@
+name,ring,quadrant,isNew,description
+Terraform,trial,tools,TRUE,Infrastructure as Code that allows easy cross account deployments
