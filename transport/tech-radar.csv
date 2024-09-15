@@ -15,4 +15,5 @@ AWS X-Ray,adopt,platforms,TRUE,Monitoring tool that traces requests through AWS 
 Localstack,hold,tools,TRUE,A tool to run infrastructure locally on a laptop to save time and AWS costs
 Browserstack,assess,tools,FALSE,Cross device testing for front-end development
 Mapbox,assess,platforms,FALSE,Services to enable premium quality map based visualisations
-Amazon MemoryDB,assess,platforms,FALSE,Redis OSS-compatible, durable, in-memory database service for ultra-fast performance
+Amazon MemoryDB,trial,platforms,FALSE,Redis OSS-compatible, durable, in-memory database service for ultra-fast performance
+AMQP,adopt,platforms,TRUE,Message Broker
