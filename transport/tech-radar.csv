@@ -1,2 +1,6 @@
 name,ring,quadrant,isNew,description
-Terraform,trial,tools,TRUE,Infrastructure as Code that allows easy cross account deployments
+Terraform,trial,tools,TRUE,Infrastructure as Code (IaC) that allows easy cross account deployments
+CDK,adopt,tools,FALSE,Infrastructure as Code (IaC) that compiles to CloudFormation templates
+Zig,hold,languages & frameworks,TRUE,Systems programming language with safety and explicit allocation
+Rust,hold,languages & frameworks,TRUE,Systems programming language with safety and borrow checker
+Product Operating Model,adopt,techniques,TRUE,Bring a user focused approach to design and development
