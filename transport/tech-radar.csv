@@ -4,3 +4,6 @@ CDK,adopt,tools,FALSE,Infrastructure as Code (IaC) that compiles to CloudFormati
 Zig,hold,languages & frameworks,TRUE,Systems programming language with safety and explicit allocation
 Rust,hold,languages & frameworks,TRUE,Systems programming language with safety and borrow checker
 Product Operating Model,adopt,techniques,TRUE,Bring a user focused approach to design and development
+Dask,trial,languages & frameworks,TRUE,Parallel compute pipelines for Python scientific data analysis
+Zarr,trial,languages & frameworks,TRUE,Cloud optimised storage format to make block based scientific algorithms efficient
+AWS Lambda,adopt,platforms,FALSE,Serverless compute platform that eliminates the need to manage EC2 instances
