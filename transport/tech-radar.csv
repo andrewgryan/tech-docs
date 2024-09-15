@@ -17,3 +17,6 @@ Browserstack,assess,tools,FALSE,Cross device testing for front-end development
 Mapbox,assess,platforms,FALSE,Services to enable premium quality map based visualisations
 Amazon MemoryDB,trial,platforms,FALSE,Redis OSS-compatible, durable, in-memory database service for ultra-fast performance
 AMQP,adopt,platforms,TRUE,Message Broker
+CI/CD,adopt,techniques,FALSE,Continuous integration and continuous delivery
+Trunk-based development,trial,techniques,TRUE,Everyone commits to main regularly to prevent long-lived feature branches
+PDM,adopt,tools,FALSE,Python package manager that makes migrating between versions simpler
