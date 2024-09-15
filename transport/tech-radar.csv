@@ -12,3 +12,7 @@ UV,assess,tools,TRUE,Alternative Python package manager written in Rust
 RunsOn,assess,platforms,TRUE,10x Cheaper GitHub Actions by running on your own AWS infrastructure
 HTMX,adopt,languages & frameworks,TRUE,Hypermedia oriented framework: eliminates the need for a large client-only reactive front-end framework
 AWS X-Ray,adopt,platforms,TRUE,Monitoring tool that traces requests through AWS infrastructure to understand where bottlenecks are, and why requests may be failing.
+Localstack,hold,tools,TRUE,A tool to run infrastructure locally on a laptop to save time and AWS costs
+Browserstack,assess,tools,FALSE,Cross device testing for front-end development
+Mapbox,assess,platforms,FALSE,Services to enable premium quality map based visualisations
+Amazon MemoryDB,assess,platforms,FALSE,Redis OSS-compatible, durable, in-memory database service for ultra-fast performance
