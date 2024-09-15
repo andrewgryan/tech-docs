@@ -20,3 +20,4 @@ AMQP,adopt,platforms,TRUE,Message Broker
 CI/CD,adopt,techniques,FALSE,Continuous integration and continuous delivery
 Trunk-based development,trial,techniques,TRUE,Everyone commits to main regularly to prevent long-lived feature branches
 PDM,adopt,tools,FALSE,Python package manager that makes migrating between versions simpler
+Vector databases,hold,platforms,Vector databases make high-dimensional queries efficient, suitable for geospatial querying.
