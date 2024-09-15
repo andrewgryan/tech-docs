@@ -7,5 +7,5 @@ Product Operating Model,adopt,techniques,TRUE,Bring a user focused approach to d
 Dask,trial,languages & frameworks,TRUE,Parallel compute pipelines for Python scientific data analysis
 Zarr,trial,languages & frameworks,TRUE,Cloud optimised storage format to make block based scientific algorithms efficient
 AWS Lambda,adopt,platforms,FALSE,Serverless compute platform that eliminates the need to manage EC2 instances
-Farm,assess,tools,TRUE,Extremely fast web build tool written in Rust
-UV,assess,tools,TRUE,Alternative Python package manager written in Rust
+Farm,trial,tools,TRUE,Extremely fast web build tool written in Rust
+UV,trial,tools,TRUE,Alternative Python package manager written in Rust
